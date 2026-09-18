@@ -1,0 +1,36 @@
+-- ============================================================
+-- Migration 003: Admin Setup
+-- The Third Space — UTSAAH 3.0 Database
+-- ============================================================
+-- INSTRUCTIONS:
+--
+-- 1. First, create the admin user in Supabase Authentication:
+--    Dashboard > Authentication > Users > Add user
+--    Set email and a strong password.
+--
+-- 2. Note the UUID from the created user.
+--
+-- 3. Run this SQL in the SQL Editor, replacing the values:
+--
+--    INSERT INTO public.admin_profiles (id, email, role)
+--    VALUES (
+--      '<USER_UUID_FROM_SUPABASE_AUTH>',
+--      'your-admin@email.com',
+--      'admin'
+--    );
+--
+-- EXAMPLE (replace before running):
+-- ============================================================
+
+-- Uncomment and fill in before running:
+-- insert into public.admin_profiles (id, email, role)
+-- values (
+--   'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',  -- replace with auth.users UUID
+--   'admin@thethirdspace.in',                 -- replace with admin email
+--   'admin'
+-- );
+
+-- ============================================================
+-- To verify:
+-- select * from public.admin_profiles;
+-- ============================================================

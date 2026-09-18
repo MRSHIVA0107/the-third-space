@@ -1,0 +1,16 @@
+[
+  {
+    "registration_id": "UTSAAH3-001",
+    "full_name": "Aanya Sharma",
+    "email": "aanya@mlrit.ac.in",
+    "phone": "9876543210",
+    "college": "MLR Institute of Technology",
+    "year": "2nd Year",
+    "branch": "CSE",
+    "section": "A",
+    "student_id": "24R21A0501",
+    "social_handle": "@aanya",
+    "created_at": "2026-09-18T15:42:19.912Z",
+    "synced_supabase": false
+  }
+]

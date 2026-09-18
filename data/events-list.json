@@ -1,0 +1,86 @@
+[
+  {
+    "id": "utsaah-3",
+    "slug": "utsaah-3",
+    "title": "UTSAAH 3.0",
+    "subtitle": "Mental Health Awareness Campaign",
+    "status": "active",
+    "eventDate": "2026-09-19",
+    "startTime": "10:00 AM",
+    "endTime": "04:00 PM",
+    "venue": "MLRIT Auditorium",
+    "banner": "/event/utsaah-banner.png",
+    "description": "UTSAAH 3.0 is an inspiring mental health awareness campaign by Psychologs, brought to MLRIT by The Third Space. Featuring an expert keynote dialogue with psychologist Mr. John Hemanth Kumar, art therapy sessions, and a student open sanctuary.",
+    "teaserSummary": "Telangana's premier student mental health initiative bringing expert dialogues and creative expression to MLRIT.",
+    "collaboration": "The Third Space × Psychologs",
+    "successStory": {
+      "headline": "A Campus United for Mental Wellbeing",
+      "summary": "UTSAAH 3.0 brought together students across all departments to openly talk about stress, emotional resilience, and connection through guided creative activities.",
+      "metrics": [
+        {
+          "label": "Attendees",
+          "value": "500+"
+        },
+        {
+          "label": "Artworks Created",
+          "value": "100+"
+        },
+        {
+          "label": "Magazines Distributed",
+          "value": "300+"
+        },
+        {
+          "label": "Keynote Hours",
+          "value": "2.5 Hrs"
+        }
+      ],
+      "memories": [
+        "/gallery/IMG-20260316-WA0054.jpg",
+        "/gallery/IMG-20260316-WA0023.jpg",
+        "/gallery/IMG-20260316-WA0032.jpg",
+        "/gallery/IMG-20260316-WA0016.jpg"
+      ]
+    },
+    "created_at": "2026-09-10T10:00:00.000Z"
+  },
+  {
+    "id": "metamorphosis-1",
+    "slug": "metamorphosis-1",
+    "title": "Metamorphosis Edition I",
+    "subtitle": "Art Gathering & Creative Circles",
+    "status": "completed",
+    "eventDate": "2026-03-16",
+    "startTime": "11:00 AM",
+    "endTime": "04:00 PM",
+    "venue": "MLRIT Central Lawn & Open Arena",
+    "banner": "/gallery/IMG-20260316-WA0054.jpg",
+    "description": "Our inaugural on-campus gathering dedicated to creative expression through painting, tactile sketch circles, and candid peer conversations.",
+    "teaserSummary": "The inaugural art gathering that founded The Third Space community sanctuary.",
+    "collaboration": "The Third Space MLRIT Community",
+    "successStory": {
+      "headline": "Where The Third Space Community Began",
+      "summary": "Our first gathering proved that when students have an open, non-judgmental space with paints, canvas, and listening ears, healing happens naturally. 29 unique photographs and artworks were preserved in the permanent archive.",
+      "metrics": [
+        {
+          "label": "Student Artists",
+          "value": "80+"
+        },
+        {
+          "label": "Artworks Preserved",
+          "value": "29 Pieces"
+        },
+        {
+          "label": "Circle Conversations",
+          "value": "5 Hours"
+        }
+      ],
+      "memories": [
+        "/gallery/IMG_20260316_115638.jpg",
+        "/gallery/IMG-20260316-WA0023.jpg",
+        "/gallery/IMG-20260316-WA0070.jpg",
+        "/gallery/IMG-20260316-WA0032.jpg"
+      ]
+    },
+    "created_at": "2026-03-16T16:00:00.000Z"
+  }
+]
