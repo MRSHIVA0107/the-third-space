@@ -1,7 +1,28 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { BACKGROUND_VIDEOS } from "@/data/videos";
+
+/**
+ * Generates a randomly shuffled array of indices [0 ... length - 1]
+ * using the Fisher-Yates algorithm. If excludeFirstIndex is provided,
+ * ensures the first item of the new shuffle does not match the previous video.
+ */
+function createShuffledIndices(length, excludeFirstIndex = -1) {
+  const indices = Array.from({ length }, (_, i) => i);
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+
+  // Prevent back-to-back duplicate clip on reshuffle
+  if (excludeFirstIndex >= 0 && indices.length > 1 && indices[0] === excludeFirstIndex) {
+    const swapTarget = Math.floor(Math.random() * (indices.length - 1)) + 1;
+    [indices[0], indices[swapTarget]] = [indices[swapTarget], indices[0]];
+  }
+
+  return indices;
+}
 
 export function BackgroundVideo({
   scrimClassName = "from-black/45 via-black/25 to-black/60",
@@ -11,20 +32,45 @@ export function BackgroundVideo({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [isFading, setIsFading] = useState(false);
+
   const videoRef = useRef(null);
   const timerRef = useRef(null);
+  const playlistRef = useRef([]);
+  const playlistPositionRef = useRef(0);
 
+  // Initialize randomized playlist on client mount
   useEffect(() => {
+    if (BACKGROUND_VIDEOS.length > 0) {
+      const initialShuffle = createShuffledIndices(BACKGROUND_VIDEOS.length);
+      playlistRef.current = initialShuffle;
+      playlistPositionRef.current = 0;
+      setCurrentIndex(initialShuffle[0]);
+    }
     setMounted(true);
   }, []);
 
-  const nextVideo = () => {
+  // Advance to next video in shuffled playlist
+  const nextVideo = useCallback(() => {
+    if (!BACKGROUND_VIDEOS.length) return;
+
     setIsFading(true);
     setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % BACKGROUND_VIDEOS.length);
+      let nextPos = playlistPositionRef.current + 1;
+      let playlist = playlistRef.current;
+
+      // When the entire shuffled playlist has played through, generate a fresh shuffle
+      if (nextPos >= playlist.length) {
+        const lastClipIndex = playlist[playlist.length - 1];
+        playlist = createShuffledIndices(BACKGROUND_VIDEOS.length, lastClipIndex);
+        playlistRef.current = playlist;
+        nextPos = 0;
+      }
+
+      playlistPositionRef.current = nextPos;
+      setCurrentIndex(playlist[nextPos]);
       setIsFading(false);
     }, 400);
-  };
+  }, []);
 
   const handleVideoEnded = () => {
     nextVideo();
@@ -36,11 +82,11 @@ export function BackgroundVideo({
       videoRef.current.defaultMuted = true;
       videoRef.current.muted = true;
       videoRef.current.play().catch(() => {
-        // Autoplay policy handling
+        // Autoplay handling
       });
     }
 
-    // Set maximum clip duration timer to ensure continuous variety through all 44 clips
+    // Set clip rotation timer to ensure constant variety across all 44 clips
     if (timerRef.current) clearTimeout(timerRef.current);
     if (maxClipDurationSeconds && maxClipDurationSeconds > 0) {
       timerRef.current = setTimeout(() => {
@@ -51,11 +97,11 @@ export function BackgroundVideo({
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [currentIndex, mounted, maxClipDurationSeconds]);
+  }, [currentIndex, mounted, maxClipDurationSeconds, nextVideo]);
 
   if (!mounted || !BACKGROUND_VIDEOS.length) return null;
 
-  const currentVideo = BACKGROUND_VIDEOS[currentIndex];
+  const currentVideo = BACKGROUND_VIDEOS[currentIndex] || BACKGROUND_VIDEOS[0];
 
   return (
     <div
@@ -64,8 +110,8 @@ export function BackgroundVideo({
     >
       {/* 
         Background ambient video playlist:
-        Automatically cycles through all 44 clips in BACKGROUND_VIDEOS continuously.
-        No single-video loop attribute, ensuring seamless playlist auto-looping.
+        Always shuffled dynamically across all 44 clips.
+        Re-shuffles on every loop without consecutive repeats.
       */}
       <video
         ref={videoRef}
@@ -76,6 +122,7 @@ export function BackgroundVideo({
         playsInline
         preload="auto"
         onEnded={handleVideoEnded}
+        onError={() => nextVideo()}
         className={`w-full h-full object-cover ${opacity} transition-opacity duration-700 ease-in-out ${
           isFading ? "opacity-20" : opacity
         }`}

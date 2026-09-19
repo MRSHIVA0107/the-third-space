@@ -56,7 +56,7 @@ export default function AdminLoginPage() {
             Admin Portal
           </h1>
           <p className="text-xs text-muted mt-1">
-            Sign in with your Admin email or student ID
+            Sign in with your authorized admin credentials
           </p>
         </div>
 
@@ -81,10 +81,11 @@ export default function AdminLoginPage() {
               id="identifier"
               type="text"
               required
+              autoComplete="username"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
-              placeholder="rikchi940@gmail.com or 257Y5A6615"
-              className="w-full px-4 py-3 bg-cream border border-sand rounded-sm text-sm text-ink focus:outline-none focus:ring-2 focus:ring-forest"
+              placeholder="Admin Email or Username"
+              className="w-full px-4 py-3 bg-cream border border-sand rounded-sm text-sm text-ink focus:outline-none focus:ring-2 focus:ring-forest placeholder:text-muted/60"
             />
           </div>
 
@@ -99,10 +100,11 @@ export default function AdminLoginPage() {
               id="password"
               type="password"
               required
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
-              className="w-full px-4 py-3 bg-cream border border-sand rounded-sm text-sm text-ink focus:outline-none focus:ring-2 focus:ring-forest"
+              className="w-full px-4 py-3 bg-cream border border-sand rounded-sm text-sm text-ink focus:outline-none focus:ring-2 focus:ring-forest placeholder:text-muted/60"
             />
           </div>
 
